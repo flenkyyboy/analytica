@@ -1,0 +1,22 @@
+{
+  "name": "analytica",
+  "version": "1.0.0",
+  "description": "Analytica",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flenkyyboy/analytica.git"
+  },
+  "author": "Rameez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flenkyyboy/analytica/issues"
+  },
+  "homepage": "https://github.com/flenkyyboy/analytica#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
