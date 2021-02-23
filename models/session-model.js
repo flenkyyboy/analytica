@@ -12,6 +12,7 @@ module.exports = mongoose.model('Session ', Schema({
         type: Date, default: Date.now
     },
     data: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref:'Data'
     }
 }));
