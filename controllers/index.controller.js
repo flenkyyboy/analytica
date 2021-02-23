@@ -7,7 +7,7 @@ exports.hello = async function (req, res) {
 
     try {
         const helper = {}
-        const jsonObj = await csv().fromFile(csvFilePath);
+        const jsonObj = await csv({checkType:true}).fromFile(csvFilePath);
 
 
         const result = jsonObj.reduce((accumulator, currentValue) => {
@@ -29,6 +29,7 @@ exports.hello = async function (req, res) {
             'Total Price': item['Price'] * item['Quantity'],
 
         }))
+        console.log(totalproductvalue);
         res.send(totalproductvalue)
     } catch (error) {
         console.log(error);
