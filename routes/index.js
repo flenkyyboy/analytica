@@ -7,31 +7,28 @@ const passport = require('passport');
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'uploads/')
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
     },
-    filename:(req,file,cb)=>{
-        const {originalname} = file;
-        cb(null,originalname)
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        cb(null, originalname)
     }
 })
-const upload = multer({storage})
+const upload = multer({ storage })
 
 router.get('/', checknotAuthentication, (req, res) => {
     res.render('login')
 });
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/home',
+    successRedirect: '/session',
     failureRedirect: '/',
-
 }))
-router.get('/home', checkAuthentication, (req, res) => {
- console.log(req.session);
-    res.render('index')
+router.get('/session', checkAuthentication, (req, res) => {
+    res.render('sessions')
 })
-router.post('/home', upload.single('avatar'),(req, res) => {
-index_controller.hello(req,res)
-// res.redirect('/home')
+router.post('/upload', checkAuthentication, upload.single('files'), (req, res) => {
+    index_controller.hello(req, res)
 })
 
 // router.post('/adduser',(req,res)=>{
@@ -57,6 +54,7 @@ router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
+
 function checkAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
@@ -65,9 +63,8 @@ function checkAuthentication(req, res, next) {
 }
 function checknotAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect('/home')
+        return res.redirect('/session')
     }
     return next()
-
 }
 module.exports = router;
