@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Session ', Schema({
+module.exports = mongoose.model('Session', Schema({
     _id: Schema.Types.ObjectId,
     created_by: {
         required: true,

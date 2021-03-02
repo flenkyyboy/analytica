@@ -31,10 +31,11 @@ router.get('/home', checkAuthentication, (req, res) => {
 })
 router.post('/home', upload.single('avatar'),(req, res) => {
 index_controller.hello(req,res)
-res.redirect('/home')
+// res.redirect('/home')
 })
 
 // router.post('/adduser',(req,res)=>{
+//     console.log(req.body);
 //     const userObj = {
 //         "_id": new mongoose.Types.ObjectId(),
 //         "name":req.body.name,

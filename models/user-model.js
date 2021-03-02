@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-module.exports = mongoose.model('User ', Schema({
+module.exports = mongoose.model('User', Schema({
     _id: Schema.Types.ObjectId,
     name: {
         type: String,

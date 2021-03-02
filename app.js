@@ -22,8 +22,8 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-
-mongoose.connect('mongodb://localhost:27017/analytica',{ useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex:true, useFindAndModify: false  }, (err)=>{
+const URI = 'mongodb+srv://flenkyboy:flenkyboy@cluster0.obmwc.mongodb.net/analytica?retryWrites=true&w=majority'
+mongoose.connect(URI,{ useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex:true, useFindAndModify: false  }, (err)=>{
     if(!err){
         console.log('success');
     }

@@ -25,14 +25,24 @@
         </div>
     </nav>
 </header>
-<a href="/" class="btn  back-btn" >Back</a>
+{{!-- <a href="/" class="btn  back-btn">Back</a> --}}
 <section>
     <div class="row">
         <div class="col-md-6 m-auto">
 
             <div class="container mt-5 pl-5 " style="padding-top: 2rem; padding: 1rem;">
-                
+
                 <h2 class="text-center  " style="font-family: Poppins;">Create a New Session </h2>
+                {{#if succes}}
+                <div  id="alert" class="alert alert-success" role="alert">
+                  {{succes}}
+                </div>
+                {{/if}}
+                 {{#if failed}}
+                <div  id="alert" class="alert alert-danger" role="alert">
+                  {{failed}}
+                </div>
+                {{/if}}
                 <form action="/home" method="POST" enctype="multipart/form-data">
                     <div style="position: relative; top: 2rem;">
 
