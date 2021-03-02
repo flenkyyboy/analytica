@@ -13,6 +13,6 @@ module.exports = mongoose.model('Session', Schema({
     },
     data: {
         type: Schema.Types.ObjectId,
-        ref:'Data'
+        ref: 'Data'
     }
 }));

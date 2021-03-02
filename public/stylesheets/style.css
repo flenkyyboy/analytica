@@ -1,0 +1,79 @@
+.logininput {
+
+
+    background: #FFFFFF;
+    mix-blend-mode: normal;
+    border: 5.53px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border-radius: 15.3407px;
+    height: 4rem;
+    width: 35rem;
+    
+}
+
+.logintext {
+  
+    font-style: normal;
+    font-weight: bold;
+    font-size: 100.23px;
+    line-height: 72px;
+    position: relative;
+    top: 4rem;
+
+}
+
+.buttontext {
+ 
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    position: relative;
+    width: 146px;
+    left: 45%;
+    top: 14rem;
+    background-color: #1B88C5;
+    color: #FFFFFF;
+    height: 3rem;
+    border-radius: 8.3407px;
+}
+
+.loginbutton {
+ 
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 20px;
+
+}
+
+.actual-button {
+    background-color: indigo;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.back-btn {
+    background-color: black;
+    color: white;
+ 
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 23px;
+    position: relative;
+    top: 1rem;
+    left: 3rem;
+}
+body {
+    font-family: Poppins;
+}
+.session{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 43px;
+}
