@@ -2,10 +2,33 @@ const express = require('express');
 const mainRouter = require('./routes/index');
 const hbs = require('express-handlebars')
 const path = require('path');
+const mongoose = require('mongoose')
+const session = require('express-session');
+const passport = require('passport');
+
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+require('./auth/auth');
+
+// app.use(express.json());
+app.use(express.urlencoded({extended:false}))
+app.use(session({
+    secret:'KEY',
+    resave:false,
+    saveUninitialized:false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+mongoose.connect('mongodb://localhost:27017/analytica',{ useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex:true, useFindAndModify: false  }, (err)=>{
+    if(!err){
+        console.log('success');
+    }
+})
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
