@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-module.exports = mongoose.model('User ', Schema({
+module.exports = mongoose.model('User', Schema({
     _id: Schema.Types.ObjectId,
     name: {
         type: String,
@@ -19,8 +19,8 @@ module.exports = mongoose.model('User ', Schema({
         type: String,
         required: true
     },
-    admin_id: {
-        required: true,
-        type: Schema.Types.ObjectId
-    }
+    // admin_id: {
+    //     required: true,
+    //     type: Schema.Types.ObjectId
+    // }
 }))
