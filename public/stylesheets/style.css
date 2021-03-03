@@ -67,6 +67,9 @@
 }
 body {
     font-family: Poppins;
+    overflow: -moz-scrollbars-vertical;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .session{
     font-style: normal;
