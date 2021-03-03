@@ -46,7 +46,6 @@ exports.hello = async function (req, res) {
                 fs.unlinkSync(req.file.path)
             }
         })
-
     } catch (error) {
         fs.unlinkSync(req.file.path)
         res.render('sessions', { failed: 'File Uploaded Failed' })
