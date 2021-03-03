@@ -3,14 +3,17 @@ const mainRouter = require('./routes/index');
 const hbs = require('express-handlebars')
 const path = require('path');
 const mongoose = require('mongoose')
+const flash = require('express-flash')
 const session = require('express-session');
 const passport = require('passport');
+
 const app = express();
 require('./auth/auth');
 
 const PORT = process.env.PORT || 3000;
 // app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
+app.use(flash())
 app.use(session({
     secret: 'KEY',
     resave: false,

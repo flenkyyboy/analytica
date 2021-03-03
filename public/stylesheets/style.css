@@ -27,26 +27,23 @@
 }
 
 .buttontext {
- 
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    width: 8rem;
+    min-width: 8rem;
     background-color: #1B88C5;
     color: #FFFFFF;
     height: 3rem;
     border-radius: 8.3407px;
 }
-
 .loginbutton {
- 
+    font-style: Poppins;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
     line-height: 20px;
-
+    min-width: 8rem;
 }
-
 .actual-button {
     background-color: indigo;
     color: white;
@@ -56,7 +53,6 @@
     cursor: pointer;
     margin-top: 1rem;
 }
-
 .back-btn {
     background-color: black;
     color: white;
