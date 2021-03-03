@@ -54,6 +54,9 @@ router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
+router.get('/test',(req,res)=>{
+    res.render('test')
+})
 
 function checkAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
