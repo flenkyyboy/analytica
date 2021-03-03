@@ -7,7 +7,12 @@
     box-sizing: border-box;
     border-radius: 15.3407px;
     height: 4rem;
-    width: 35rem;
+    width: 70%;
+    font-family: Karla;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23.01px;
+    line-height: 19px;
     
 }
 
@@ -17,8 +22,7 @@
     font-weight: bold;
     font-size: 100.23px;
     line-height: 72px;
-    position: relative;
-    top: 4rem;
+  
 
 }
 
@@ -27,10 +31,7 @@
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    position: relative;
-    width: 146px;
-    left: 45%;
-    top: 14rem;
+    width: 8rem;
     background-color: #1B88C5;
     color: #FFFFFF;
     height: 3rem;
