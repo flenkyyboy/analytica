@@ -5,7 +5,6 @@ const Sessions = require('../models/session-model')
 const mongoose = require('mongoose')
 const fs = require('fs')
 
-
 exports.hello = async function (req, res) {
     try {
         const helper = {}

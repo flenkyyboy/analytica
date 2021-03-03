@@ -23,11 +23,12 @@ router.get('/', checknotAuthentication, (req, res) => {
 router.post('/', passport.authenticate('local', {
     successRedirect: '/session',
     failureRedirect: '/',
+    failureFlash:true
 }))
 router.get('/session', checkAuthentication, (req, res) => {
     res.render('sessions')
 })
-router.post('/upload', checkAuthentication, upload.single('files'), (req, res) => {
+router.post('/upload', checkAuthentication, upload.single('datafile'), (req, res) => {
     index_controller.hello(req, res)
 })
 
