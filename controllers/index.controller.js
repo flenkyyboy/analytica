@@ -7,7 +7,6 @@ const fs = require('fs')
 
 
 exports.hello = async function (req, res) {
-
     try {
         const helper = {}
         const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
@@ -46,7 +45,6 @@ exports.hello = async function (req, res) {
                 fs.unlinkSync(req.file.path)
             }
         })
-
     } catch (error) {
         fs.unlinkSync(req.file.path)
         res.render('sessions', { failed: 'File Uploaded Failed' })
