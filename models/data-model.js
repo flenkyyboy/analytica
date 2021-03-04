@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 module.exports = mongoose.model('Data', Schema({
     _id: Schema.Types.ObjectId,
     data: {
+        required: true,
         type: Array
     }
 }));

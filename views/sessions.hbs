@@ -7,26 +7,17 @@
                 <div>
                     <h2 class="text-center session ">Sessions</h2>
                 </div>
-                {{#if succes}}
-                <div id="alert" class="alert alert-success text-center pt-2" role="alert">
-                    {{succes}}
-                </div>
-                {{/if}}
-                {{#if failed}}
-                <div id="alert" class="alert alert-danger text-center pt-2" role="alert">
-                    {{failed}}
-                </div>
-                {{/if}}
                 <div class="pt-4">
                     <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModal"
-                        data-whatever="@getbootstrap" style="color: white; background-color: #A6A2A2; ;">Create
+                        data-whatever="@getbootstrap" style="color: white; background-color: #A6A2A2;font-weight: bold;">Create
                         session</button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel" style="min-width: 8rem;">Create new session</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel" style="min-width: 8rem;">Create new
+                                        session</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -34,13 +25,13 @@
                                 <div class="modal-body">
                                     <form action="/upload" method="POST" enctype="multipart/form-data">
                                         <div>
-                                            <input class="form-control form-control-lg " accept=".csv" name="datafile" id="formFileLg"
-                                                type="file" required>
+                                            <input class="form-control form-control-lg " accept=".csv" name="datafile"
+                                                id="formFileLg" type="file" required>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
-                                        style="background-color: #000000; color: white;"
+                                        style="background-color: #000000; color: white; width: 7rem;"
                                         data-dismiss="modal">Back</button>
                                     <button type="s" class="btn"
                                         style="background-color: #1BC5BD; color: white;">Generate</button>
@@ -50,6 +41,21 @@
                         </div>
                     </div>
                 </div>
+                {{#if succes}}
+                <div id="alert" class="alert alert-success text-center mt-5" role="alert">
+                    {{succes}}
+                </div>
+                {{/if}}
+                {{#if failed}}
+                <div id="alert" class="alert alert-danger text-center mt-5" role="alert">
+                    {{failed}}
+                </div>
+                {{/if}}
+                {{#if covertingFailed}}
+                <div id="alert" class="alert alert-danger text-center mt-5" role="alert" >
+                    {{covertingFailed}}
+                </div>
+                {{/if}}
             </div>
         </div>
     </div>
