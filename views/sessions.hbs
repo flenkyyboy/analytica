@@ -9,7 +9,8 @@
                 </div>
                 <div class="pt-4">
                     <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModal"
-                        data-whatever="@getbootstrap" style="color: white; background-color: #A6A2A2;font-weight: bold;">Create
+                        data-whatever="@getbootstrap"
+                        style="color: white; background-color: #A6A2A2;font-weight: bold;">Create
                         session</button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -52,10 +53,45 @@
                 </div>
                 {{/if}}
                 {{#if covertingFailed}}
-                <div id="alert" class="alert alert-danger text-center mt-5" role="alert" >
+                <div id="alert" class="alert alert-danger text-center mt-5" role="alert">
                     {{covertingFailed}}
                 </div>
                 {{/if}}
+                <div class="pt-5">
+                    <table class="table table-borderless">
+                        <thead style="background-color: #F3F6F9;">
+                            <tr>
+                                
+                                <th style="text-align: left;color: #464E5F;">Session Id</th>
+                                <th style="text-align: center; color: #B5B5C3;">Created date</th>
+                                <th style="text-align: right;color: #B5B5C3;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-top: 0px solid #dee2e6;">
+                            <tr>
+                                <td >1111</td>
+                                <td style="text-align: center">demo</td>
+                                <td style="text-align: right">
+                                    <a href="" class="btn " style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px;">View</a>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td >1111</td>
+                                <td style="text-align: center">demo</td>
+                                <td style="text-align: right">
+                                    <a href="" class="btn " style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px">View</a>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td >1111</td>
+                                <td style="text-align: center">demo</td>
+                                <td style="text-align: right">
+                                    <a href="" class="btn " style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

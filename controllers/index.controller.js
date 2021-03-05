@@ -11,16 +11,16 @@ exports.hello = async function (req, res) {
         const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
         jsonObj.forEach(item => {
             if (!item["Product ID"]) {
-                res.render('sessions', { covertingFailed: 'Converting Failed' })
+                throw err
             }
             if (!item["Product Name"]) {
-                res.render('sessions', { covertingFailed: 'Converting Failed' })
+                throw err
             }
             if (!item.Price) {
-                res.render('sessions', { covertingFailed: 'Converting Failed' })
+                throw err
             }
             if (!item.Quantity) {
-                res.render('sessions', { covertingFailed: 'Converting Failed' })
+                throw err
             }
         })
         const result = jsonObj.reduce((accumulator, currentValue) => {
@@ -38,6 +38,7 @@ exports.hello = async function (req, res) {
             'Total Price': item['Price'] * item['Quantity'],
         }))
         if (totalproductvalue.length === 0) {
+            fs.unlinkSync(req.file.path)
             res.render('sessions', { failed: 'File Uploaded Failed' })
         } else {
             const dataObj = {
@@ -67,10 +68,9 @@ exports.hello = async function (req, res) {
                 }
             })
         }
+    } catch (err) {
         fs.unlinkSync(req.file.path)
-    } catch (error) {
-        fs.unlinkSync(req.file.path)
-        res.render('sessions', { failed: 'File Uploaded Failed' })
+        res.render('sessions', { failed: 'Converting Failed' })
     }
 
 }
