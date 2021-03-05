@@ -1,6 +1,4 @@
 .logininput {
-
-
     background: #FFFFFF;
     mix-blend-mode: normal;
     border: 5.53px solid rgba(0, 0, 0, 0.1);
@@ -13,19 +11,14 @@
     font-weight: normal;
     font-size: 23.01px;
     line-height: 19px;
-    
+    outline: none;
 }
-
 .logintext {
-  
     font-style: normal;
     font-weight: bold;
     font-size: 100.23px;
     line-height: 72px;
-  
-
 }
-
 .buttontext {
     font-style: normal;
     font-weight: normal;
@@ -76,4 +69,18 @@ body {
     font-weight: normal;
     font-size: 60px;
     line-height: 43px;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0 3rem;
+   
+}
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 0px solid #dee2e6;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid #dee2e6;
 }
