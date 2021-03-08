@@ -4,43 +4,15 @@ const Data = require('../models/data-model')
 const Sessions = require('../models/session-model')
 const mongoose = require('mongoose')
 const fs = require('fs')
+const model_helper = require('../models/helpers/index.helper')
+module.exports = {
 
-exports.hello = async function (req, res) {
-    try {
-        const helper = {}
-        const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
-        jsonObj.forEach(item => {
-            if (!item["Product ID"]) {
-                throw err
-            }
-            if (!item["Product Name"]) {
-                throw err
-            }
-            if (!item.Price) {
-                throw err
-            }
-            if (!item.Quantity) {
-                throw err
-            }
-        })
-        const result = jsonObj.reduce((accumulator, currentValue) => {
-            var key = currentValue['Product ID']
-            if (!helper[key]) {
-                helper[key] = currentValue
-                accumulator.push(helper[key]);
-            } else {
-                helper[key].Quantity = helper[key].Quantity + currentValue.Quantity;
-            }
-            return accumulator;
-        }, []);
-        const totalproductvalue = result.map(item => ({
-            ...item,
-            'Total Price': item['Price'] * item['Quantity'],
-        }))
-        if (totalproductvalue.length === 0) {
-            fs.unlinkSync(req.file.path)
-            res.render('sessions', { failed: 'File Uploaded Failed' })
-        } else {
+    createSession: async (req, res) => {
+        try {
+            const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
+            model_helper.validateProperty(jsonObj)
+            const result = model_helper.addProduct(jsonObj)
+            const totalproductvalue = model_helper.addTotalPrice(result)
             const dataObj = {
                 "_id": new mongoose.Types.ObjectId(),
                 "data": totalproductvalue
@@ -67,10 +39,16 @@ exports.hello = async function (req, res) {
                     fs.unlinkSync(req.file.path)
                 }
             })
+        } catch (err) {
+            fs.unlinkSync(req.file.path)
+            res.render('sessions', { failed: 'Converting Failed' })
         }
-    } catch (err) {
-        fs.unlinkSync(req.file.path)
-        res.render('sessions', { failed: 'Converting Failed' })
-    }
 
+    },
+    getSessions:async(req,res)=>{
+
+        const allSession = await Sessions.find({created_by:req.session.passport.user}).lean()
+        res.render('sessions',{allSession})
+
+    }
 }
