@@ -23,13 +23,13 @@ router.get('/', checknotAuthentication, (req, res) => {
 router.post('/', passport.authenticate('local', {
     successRedirect: '/session',
     failureRedirect: '/',
-    failureFlash:true
+    failureFlash: true
 }))
 router.get('/session', checkAuthentication, (req, res) => {
-    res.render('sessions')
+    index_controller.getSessions(req, res)
 })
 router.post('/upload', checkAuthentication, upload.single('datafile'), (req, res) => {
-    index_controller.hello(req, res)
+    index_controller.createSession(req, res)
 })
 
 // router.post('/adduser',(req,res)=>{
@@ -55,7 +55,7 @@ router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
-router.get('/test',(req,res)=>{
+router.get('/test', (req, res) => {
     res.render('test')
 })
 
