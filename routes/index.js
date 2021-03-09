@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-router.get('/', checknotAuthentication, (req, res) => {
+router.get('/', checkNotAuthentication, (req, res) => {
     res.render('login')
 });
 router.post('/', passport.authenticate('local', {
@@ -58,6 +58,9 @@ router.get('/logout', function (req, res) {
 router.get('/test', (req, res) => {
     res.render('test')
 })
+router.get('/delete-session/:id', (req, res) => {
+    index_controller.deleteSession(req,res)
+})
 
 function checkAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
@@ -65,7 +68,7 @@ function checkAuthentication(req, res, next) {
     }
     res.redirect('/')
 }
-function checknotAuthentication(req, res, next) {
+function checkNotAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/session')
     }
