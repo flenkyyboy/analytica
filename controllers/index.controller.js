@@ -54,7 +54,6 @@ module.exports.getSessions = async (req, res) => {
 }
 module.exports.deleteSession = async (req, res) => {
  const sessionData =await Sessions.findOneAndDelete({_id:req.params.id})
- console.log(sessionData.data);
  Data.findByIdAndDelete({_id:sessionData.data},(err)=>{
     if(err) console.log(err);
  })
