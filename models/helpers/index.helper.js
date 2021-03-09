@@ -23,11 +23,11 @@ module.exports.addProduct = (jsonObj) => {
 
 }
 module.exports.addTotalPrice = (result) => {
-    const totalproductvalue = result.map(item => ({
+    const totalProductValue = result.map(item => ({
         ...item,
         'Total Price': item['Price'] * item['Quantity'],
     }))
-    return totalproductvalue
+    return totalProductValue
 }
 module.exports.getSession = async (req,res)=>{
     const getSessions = await Sessions.find({ created_by: req.session.passport.user }).lean()

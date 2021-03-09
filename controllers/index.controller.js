@@ -11,10 +11,10 @@ module.exports.createSession = async (req, res) => {
         const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
         model_helper.validateProperty(jsonObj)
         const result = model_helper.addProduct(jsonObj)
-        const totalproductvalue = model_helper.addTotalPrice(result)
+        const totalProductValue = model_helper.addTotalPrice(result)
         const dataObj = {
             "_id": new mongoose.Types.ObjectId(),
-            "data": totalproductvalue
+            "data": totalProductValue
         }
         const newData = new Data(dataObj)
         newData.save((err, data) => {
@@ -33,7 +33,7 @@ module.exports.createSession = async (req, res) => {
                     if (err) {
                         res.render('sessions', { failed: 'File Uploaded Failed', allSession })
                     } else {
-                        res.render('sessions', { succes: 'Session Created Succesfully', allSession })
+                        res.render('sessions', { success: 'Session Created Successfully', allSession })
                     }
                 })
                 fs.unlinkSync(req.file.path)
