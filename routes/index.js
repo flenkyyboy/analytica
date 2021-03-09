@@ -58,6 +58,9 @@ router.get('/logout', function (req, res) {
 router.get('/test', (req, res) => {
     res.render('test')
 })
+router.get('/delete-session/:id', (req, res) => {
+    index_controller.deleteSession(req,res)
+})
 
 function checkAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
