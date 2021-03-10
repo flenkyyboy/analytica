@@ -32,7 +32,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs({
     extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname +
-        '/views/layout/', partialsDir: __dirname + '/views/partial/'
+        '/views/layout/', partialsDir: __dirname + '/views/partial/',
+    helpers: {
+        pagination: (totalSession) => {
+            let result = ""
+            for (let i = 1; i < totalSession / 5; i++) {
+                result = result + `<li class="page-item"><a class="page-link" href="/session?page=${i}">${i}</a></li>`
+            }
+            return result
+        }
+    }
+
 }))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', mainRouter)

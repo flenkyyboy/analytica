@@ -59,9 +59,11 @@ router.get('/test', (req, res) => {
     res.render('test')
 })
 router.get('/delete-session/:id', (req, res) => {
-    index_controller.deleteSession(req,res)
+    index_controller.deleteSession(req, res)
 })
-
+router.get('/view-session/:id', (req, res) => {
+    index_controller.viewSession(req, res)
+})
 function checkAuthentication(req, res, next) {
     if (req.isAuthenticated()) {
         return next()

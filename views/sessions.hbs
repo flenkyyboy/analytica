@@ -85,21 +85,28 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" style="background-color:#a79f9f; color: whitesmoke;width: 6rem;border-radius: 6px;" class="btn "
-                                                        data-dismiss="modal">No</button>
+                                                    <button type="button"
+                                                        style="background-color:#a79f9f; color: whitesmoke;width: 6rem;border-radius: 6px;"
+                                                        class="btn " data-dismiss="modal">No</button>
                                                     <a href="/delete-session/{{_id}}" class="btn "
                                                         style="background-color:#ff0000; color: whitesmoke;width: 6rem;border-radius: 6px;">Yes</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="" class="btn "
+                                    <a href="/view-session/{{data}}" class="btn "
                                         style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px;">View</a>
                                 </td>
                                 {{/each}}
 
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="/session">0</a></li>
+                            {{{pagination totalSession}}}
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
