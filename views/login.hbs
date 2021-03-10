@@ -1,30 +1,33 @@
-<div class="row ">
-    <div class="col-md-6 m-auto">
-        <div class="container ">
-            <div class="text-center " style="padding-top: 6rem;">
-                <h1 class="text-center logintext ">Analytica</h1>
-            </div>
-            <div style="text-align:center; padding-top: 6rem;">
-                {{#if messages.error}}
-                <div id="alert" class="alert alert-danger " role="alert" style="width: 70%; left: 8.5rem;">
+
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="text-center " style="padding-top: 19rem;">
+                    <h1 class="text-center logintext ">Analytica</h1>
+                </div>
+                <div style="text-align:center; padding-top: 2.5rem;">
+                     {{#if messages.error}}
+                <div id="alert" class="alert alert-danger " role="alert" style="width: 35%; left: 18.5rem;">
                     {{messages.error}}
                 </div>
                 {{/if}}
-                <form action="/" method="POST">
-                    <div class="form-group">
-                        <input name="email" type="email" class=" logininput text-center" placeholder="Email Address"
-                            required style="font-family: Poppins;">
-                    </div>
-                    <div class="form-group " style="padding-top: 2rem;">
+                    <form action="/" method="POST">
+                        <div class="form-group">
+                            <input name="email" type="email" class=" logininput text-center" placeholder="Email Address"
+                                required style="font-family: Poppins;">
+                        </div>
+                        <div class="form-group " style="padding-top: 1rem;">
 
-                        <input name="password" type="password" class="  logininput text-center" placeholder="Password"
-                            required style="font-family: Poppins;">
-                    </div>
-                    <div style="padding-top: 2rem;">
-                        <button type="submit" class="btn float-center buttontext">LOGIN</button>
-                    </div>
-                </form>
+                            <input name="password" type="password" class="  logininput text-center"
+                                placeholder="Password" required style="font-family: Poppins;">
+                        </div>
+                        <div style="padding-top: 2rem;">
+                            <button type="submit" class="btn float-center buttontext">LOGIN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 bgimg">
             </div>
         </div>
     </div>
-</div>
