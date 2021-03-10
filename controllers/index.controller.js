@@ -17,9 +17,12 @@ module.exports.createSession = async (req, res) => {
             "data": totalProductValue
         }
         const newData = new Data(dataObj)
-        newData.save((err, data) => {
-            if (err) {
-                res.render('sessions', { failed: 'File Uploaded Failed' })
+        newData.save(async (errr, data) => {
+            const pageNo = req.query.page
+            const userId = req.session.passport.user
+            const { allSession, totalSession } = await model_helper.getSession(userId, pageNo)
+            if (errr) {
+                res.render('sessions', { failed: 'File Uploaded Failed', allSession, totalSession })
                 fs.unlinkSync(req.file.path)
             } else {
                 const sessObj = {
@@ -29,34 +32,40 @@ module.exports.createSession = async (req, res) => {
                 }
                 const newSess = new Sessions(sessObj)
                 newSess.save(async (err, user) => {
-                    const allSession = await model_helper.getSession(req, res)
+                    const pageNo = req.query.page
+                    const userId = req.session.passport.user
+                    const { allSession, totalSession } = await model_helper.getSession(userId, pageNo)
                     if (err) {
-                        res.render('sessions', { failed: 'File Uploaded Failed', allSession })
+                        res.render('sessions', { failed: 'File Uploaded Failed', allSession, totalSession })
                     } else {
-                        res.render('sessions', { success: 'Session Created Successfully', allSession })
+                        res.render('sessions', { success: 'Session Created Successfully', allSession, totalSession })
                     }
                 })
                 fs.unlinkSync(req.file.path)
             }
         })
     } catch (err) {
-        const allSession = await model_helper.getSession(req, res)
+        const pageNo = req.query.page
+        const userId = req.session.passport.user
+        const { allSession, totalSession } = await model_helper.getSession(userId, pageNo)
         fs.unlinkSync(req.file.path)
-        res.render('sessions', { failed: 'Converting Failed', allSession })
+        res.render('sessions', { failed: 'Converting Failed', allSession, totalSession })
     }
-
 }
 module.exports.getSessions = async (req, res) => {
-
-    const allSession = await model_helper.getSession(req, res)
-    res.render('sessions', { allSession })
-
+    const pageNo = req.query.page
+    const userId = req.session.passport.user
+    const { allSession, totalSession } = await model_helper.getSession(userId, pageNo)
+    res.render('sessions', { allSession, totalSession })
 }
 module.exports.deleteSession = async (req, res) => {
- const sessionData =await Sessions.findOneAndDelete({_id:req.params.id})
- Data.findByIdAndDelete({_id:sessionData.data},(err)=>{
-    if(err) console.log(err);
- })
- res.redirect('/session')
-
+    const sessionData = await Sessions.findOneAndDelete({ _id: req.params.id })
+    Data.findByIdAndDelete({ _id: sessionData.data }, (err) => {
+        if (err) console.log(err);
+    })
+    res.redirect('/session')
+}
+module.exports.viewSession = async (req, res) => {
+    const data = await Data.findOne({ _id: req.params.id })
+    res.send(data._id)
 }

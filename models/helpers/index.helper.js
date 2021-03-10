@@ -8,8 +8,9 @@ module.exports.validateProperty = (jsonObj) => {
     })
 }
 module.exports.addProduct = (jsonObj) => {
-    const helper = {}
-    const result = jsonObj.reduce((accumulator, currentValue) => {
+
+    return jsonObj.reduce((accumulator, currentValue) => {
+        const helper = {}
         var key = currentValue['Product ID']
         if (!helper[key]) {
             helper[key] = currentValue
@@ -19,27 +20,27 @@ module.exports.addProduct = (jsonObj) => {
         }
         return accumulator;
     }, []);
-    return result
-
 }
 module.exports.addTotalPrice = (result) => {
-    const totalProductValue = result.map(item => ({
+    return result.map(item => ({
         ...item,
         'Total Price': item['Price'] * item['Quantity'],
     }))
-    return totalProductValue
+
 }
-module.exports.getSession = async (req,res)=>{
-    const getSessions = await Sessions.find({ created_by: req.session.passport.user }).lean()
-    const newSession = getSessions.map(item=>({
-        _id:item._id,
-        created_by:item.created_by,
-        data:item.data,
-        created_at: moment(item.created_at).format("MMM Do YY")
-    
-    
+module.exports.getSession = async (userId, pageNo = 0) => {
+    const skipValue = pageNo * 5
+    const getSessions = await Sessions.find({ created_by: userId }).skip(skipValue).limit(5).sort("-created_at").lean()
+    const totalSession = await Sessions.countDocuments()
+    const allSession = getSessions.map(item => ({
+        _id: item._id,
+        created_by: item.created_by,
+        data: item.data,
+        created_at: moment(item.created_at).format("L")
+
+
     }))
-    return newSession
+    return { allSession, totalSession }
 }
 
 
