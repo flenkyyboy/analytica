@@ -1,36 +1,44 @@
-const express = require('express');
-const index_controller = require('../controllers/index.controller');
-const User = require('../models/user-model')
-const mongoose = require('mongoose')
-const multer = require('multer')
-const passport = require('passport');
+const express = require("express");
+const index_controller = require("../controllers/index.controller");
+const User = require("../models/user-model");
+const mongoose = require("mongoose");
+const multer = require("multer");
+const passport = require("passport");
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/')
-    },
-    filename: (req, file, cb) => {
-        const { originalname } = file;
-        cb(null, originalname)
-    }
-})
-const upload = multer({ storage })
-
-router.get('/', checkNotAuthentication, (req, res) => {
-    res.render('login')
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, originalname);
+  },
 });
-router.post('/', passport.authenticate('local', {
-    successRedirect: '/session',
-    failureRedirect: '/',
-    failureFlash: true
-}))
-router.get('/session', checkAuthentication, (req, res) => {
-    index_controller.getSessions(req, res)
-})
-router.post('/upload', checkAuthentication, upload.single('datafile'), (req, res) => {
-    index_controller.createSession(req, res)
-})
+const upload = multer({ storage });
+
+router.get("/", checkNotAuthentication, (req, res) => {
+  res.render("login");
+});
+router.post(
+  "/",
+  passport.authenticate("local", {
+    successRedirect: "/session",
+    failureRedirect: "/",
+    failureFlash: true,
+  })
+);
+router.get("/session", checkAuthentication, (req, res) => {
+  index_controller.getSessions(req, res);
+});
+router.post(
+  "/upload",
+  checkAuthentication,
+  upload.single("datafile"),
+  (req, res) => {
+    index_controller.createSession(req, res);
+  }
+);
 
 // router.post('/adduser',(req,res)=>{
 //     console.log(req.body);
@@ -51,29 +59,29 @@ router.post('/upload', checkAuthentication, upload.single('datafile'), (req, res
 //         }
 //     })
 // })
-router.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
+router.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
 });
-router.get('/test', (req, res) => {
-    res.render('test')
-})
-router.get('/delete-session/:id', (req, res) => {
-    index_controller.deleteSession(req, res)
-})
-router.get('/view-session/:id', (req, res) => {
-    index_controller.viewSession(req, res)
-})
+router.get("/test", (req, res) => {
+  res.render("test");
+});
+router.get("/delete-session/:id", (req, res) => {
+  index_controller.deleteSession(req, res);
+});
+router.get("/view-session/:id", (req, res) => {
+  index_controller.viewSession(req, res);
+});
 function checkAuthentication(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    res.redirect('/')
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
 }
 function checkNotAuthentication(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/session')
-    }
-    return next()
+  if (req.isAuthenticated()) {
+    return res.redirect("/session");
+  }
+  return next();
 }
 module.exports = router;

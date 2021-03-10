@@ -1,10 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Data', Schema({
+module.exports = mongoose.model(
+  "Data",
+  Schema({
     _id: Schema.Types.ObjectId,
     data: {
-        required: true,
-        type: Array
-    }
-}));
+      required: true,
+      type: Array,
+    },
+  })
+);
