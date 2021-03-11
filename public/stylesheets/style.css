@@ -57,12 +57,10 @@
     color: white;
 
     font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
+    font-weight: 550;
+    font-size: 22px;
     line-height: 23px;
-    position: relative;
-    top: 1rem;
-    left: 3rem;
+
 }
 
 body {
@@ -106,4 +104,33 @@ table {
     background-repeat: no-repeat;
     background-size: 1369px;    
     position: relative;
+}
+.dashboard{
+    font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 34px;
+line-height: 51px;
+}
+.editinput{
+    background: #FFFFFF;
+    box-sizing: border-box;
+    height: 4rem;
+    width: 70%;
+    font-family: Karla;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23.01px;
+    line-height: 19px;
+    outline: none;
+}
+.edit-btn{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    min-width: 8rem;
+    background-color: #1992d8;
+    color: #FFFFFF;
+    height: 2.5rem;
+    border-radius: 8.3407px;
 }

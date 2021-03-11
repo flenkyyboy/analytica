@@ -1,74 +1,64 @@
 {{>navbar}}
-{{!-- <a href="/" class="btn  back-btn">Back</a> --}}
 <section>
     <div class="row">
         <div class="col-md-6 m-auto">
             <div class="container mt-5 pt-3 ">
                 <div>
-                    <h2 class="text-center session ">Sessions</h2>
+                    <h2 class="text-center session ">All users</h2>
                 </div>
                 <div class="pt-4">
                     <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModal"
                         data-whatever="@getbootstrap"
                         style="color: white; background-color: #A6A2A2;font-weight: bold;">Create
-                        session</button>
+                        User</button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel" style="min-width: 8rem;">Create new
-                                        session</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel" style="min-width: 8rem;">Create New
+                                        User</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <a href="" class="btn btn-primary float-right ">Download</a>
-                                    </div>
-                                    <form action="/upload" method="POST" enctype="multipart/form-data" class="mt-3">
-                                        <div>
-                                            <input class="form-control form-control-lg " accept=".csv" name="datafile"
-                                                id="formFileLg" type="file" required>
-                                        </div>
+                                <div class="modal-body ">
+                                    <form action="/" method="POST" enctype="multipart/form-data">
+                                        <label for="">Name</label>
+                                        <input type="text" class="form-control" name="name">
+
+
+                                        <label for="">Email</label>
+                                        <input type="email" class="form-control" name="email">
+
+                                        <label for="">Password</label>
+                                        <input type="password" class="form-control" name="password">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         style="background-color: #000000; color: white; width: 7rem;"
                                         data-dismiss="modal">Back</button>
                                     <button type="s" class="btn"
-                                        style="background-color: #1BC5BD; color: white;">Generate</button>
+                                        style="background-color: #1BC5BD; color: white;">Create</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{#if success}}
-                <div id="alert" class="alert alert-success text-center mt-5" role="alert">
-                    {{success}}
-                </div>
-                {{/if}}
-                {{#if failed}}
-                <div id="alert" class="alert alert-danger text-center mt-5" role="alert">
-                    {{failed}}
-                </div>
-                {{/if}}
                 <div class="pt-5">
                     <table class="table table-borderless">
                         <thead style="background-color: #F3F6F9;">
                             <tr>
-                                <th style="text-align: left;color: #464E5F;">Session Id</th>
-                                <th style="text-align: center; color: #B5B5C3;">Created date</th>
+                                <th style="text-align: left;color: #464E5F;">Name</th>
+                                <th style="text-align: center; color: #B5B5C3;">Email</th>
                                 <th style="position: absolute; right: 6rem;color: #B5B5C3;">Action</th>
                             </tr>
                         </thead>
                         <tbody style="border-top: 0px solid #dee2e6;">
-                            {{#each allSession}}
                             <tr>
-                                <td>{{_id}}</td>
-                                <td style="text-align: center">{{created_at}}</td>
+                                <td>Demo</td>
+                                <td style="text-align: center">Demo</td>
                                 <td style="text-align: right">
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#exampleModalCenter"
@@ -81,14 +71,14 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLongTitle">Do you really
-                                                        want to delete this Session?</h5>
+                                                        want to delete this User?</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/delete-session/{{_id}}" class="btn "
+                                                    <a href="/delete-user/" class="btn "
                                                         style="background-color:#ff0000; color: whitesmoke;width: 6rem;border-radius: 6px;">Yes</a>
                                                     <button type="button"
                                                         style="background-color:#a79f9f; color: whitesmoke;width: 6rem;border-radius: 6px;"
@@ -97,31 +87,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="/view-session" class="btn "
-                                        style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px;">View</a>
+                                    <a href="/edit-user" class="btn "
+                                        style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px;">Edit</a>
                                 </td>
-                                {{/each}}
-
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="/session">0</a></li>
-                            {{{pagination totalSession}}}
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
     </div>
     </div>
 </section>
-<script>
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const page = url.searchParams.get("page") || "0"
-    const paginationLinks = document.querySelectorAll(".page-item")
-    paginationLinks.forEach(link => {
-        if (page === link.innerText) link.classList.add("active")
-    })
-</script>

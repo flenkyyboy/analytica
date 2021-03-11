@@ -69,9 +69,15 @@ router.get("/test", (req, res) => {
 router.get("/delete-session/:id", (req, res) => {
   index_controller.deleteSession(req, res);
 });
-router.get("/view-session/:id", (req, res) => {
-  index_controller.viewSession(req, res);
-});
+router.get('/view-users',(req,res)=>{
+  res.render('view-users')
+})
+router.get('/view-session',(req,res)=>{
+  res.render('view-session')
+})
+router.get('/edit-user',(req,res)=>{
+  res.render('edit-user')
+})
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
