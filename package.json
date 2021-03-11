@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/flenkyyboy/analytica#readme",
   "dependencies": {
+    "connect-mongo": "^4.4.0",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
     "express-flash": "0.0.2",

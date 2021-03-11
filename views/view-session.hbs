@@ -1,0 +1,77 @@
+<div class="row"></div>
+    <div class="col-md-6 m-auto">
+        <div class="text-center">
+            <h1 class="text-center dashboard mt-4">Dashboard</h1>
+        </div>
+        <div>
+            <a href="" class="btn back-btn float-left">Back</a>
+        </div>
+        <div>
+            <a href="" class="btn btn-primary float-right">Download</a>
+        </div>
+         <div class="pt-5">
+        <canvas id="myChart"></canvas>
+        <canvas id="myChart2"></canvas>
+         <canvas id="myChart3"></canvas>
+         <canvas id="myChart4"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+    let myChart = document.getElementById('myChart').getContext('2d')
+    let barchart = new Chart(myChart, {
+        type: 'pie',
+        data: {
+            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            datasets: [{
+                label: 'Color',
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
+                data: [20, 10, 5, 2, 20, 30, 45],
+            }]
+        },
+        options: {}
+    })
+    let myChart2 = document.getElementById('myChart2').getContext('2d')
+    let barchart2 = new Chart(myChart2, {
+        type: 'line',
+        data: {
+            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            datasets: [{
+                label: 'Color',
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
+                data: [20, 10, 5, 2, 20, 30, 45],
+            }]
+        },
+        options: {}
+    })
+    let myChart3 = document.getElementById('myChart3').getContext('2d')
+    let barchart3 = new Chart(myChart3, {
+        type: 'bar',
+        data: {
+            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            datasets: [{
+                label: 'Color',
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
+                data: [20, 10, 5, 2, 20, 30, 45],
+            }]
+        },
+        options: {}
+    })
+    let myChart4 = document.getElementById('myChart4').getContext('2d')
+    let barchart4 = new Chart(myChart4, {
+        type: 'doughnut',
+        data: {
+            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            datasets: [{
+                label: 'Color',
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
+                data: [20, 10, 5, 2, 20, 30, 45],
+            }]
+        },
+        options: {}
+    })
+</script>
