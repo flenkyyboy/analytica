@@ -6,17 +6,23 @@ const mongoose = require("mongoose");
 const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("passport");
+const MongoStore=require('connect-mongo')
 
 const app = express();
 require("./auth/auth");
 
 const PORT = process.env.PORT || 3000;
-// app.use(express.json());
+const URI =
+  "mongodb+srv://flenkyboy:flenkyboy@cluster0.obmwc.mongodb.net/analytica?retryWrites=true&w=majority";
+  const URISESS =
+  "mongodb+srv://flenkyboy:flenkyboy@cluster0.obmwc.mongodb.net/analyticasess?retryWrites=true&w=majority";
+
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(
   session({
     secret: "KEY",
+    store: MongoStore.create({ mongoUrl: URISESS }),
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 },
@@ -24,8 +30,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-const URI =
-  "mongodb+srv://flenkyboy:flenkyboy@cluster0.obmwc.mongodb.net/analytica?retryWrites=true&w=majority";
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

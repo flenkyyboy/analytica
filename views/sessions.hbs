@@ -113,3 +113,12 @@
     </div>
     </div>
 </section>
+<script>
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const page = url.searchParams.get("page") || "0"
+    const paginationLinks = document.querySelectorAll(".page-item")
+    paginationLinks.forEach(link => { 
+        if(page === link.innerText) link.classList.add("active")
+    })
+</script>
