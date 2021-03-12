@@ -23,7 +23,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body ">
-                                    <form action="/" method="POST" enctype="multipart/form-data">
+                                    <form action="/create-user" method="POST">
                                         <label for="">Name</label>
                                         <input type="text" class="form-control" name="name">
 
@@ -46,6 +46,16 @@
                         </div>
                     </div>
                 </div>
+                {{#if success}}
+                <div id="alert" class="alert alert-success text-center mt-5" role="alert">
+                    {{success}}
+                </div>
+                {{/if}}
+                {{#if failed}}
+                <div id="alert" class="alert alert-danger text-center mt-5" role="alert">
+                    {{failed}}
+                </div>
+                {{/if}}
                 <div class="pt-5">
                     <table class="table table-borderless">
                         <thead style="background-color: #F3F6F9;">
@@ -56,9 +66,10 @@
                             </tr>
                         </thead>
                         <tbody style="border-top: 0px solid #dee2e6;">
+                            {{#each allUser}}
                             <tr>
-                                <td>Demo</td>
-                                <td style="text-align: center">Demo</td>
+                                <td>{{name}}</td>
+                                <td style="text-align: center">{{email}}</td>
                                 <td style="text-align: right">
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#exampleModalCenter"
@@ -78,7 +89,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/delete-user/" class="btn "
+                                                    <a href="/delete-user/{{_id}}" class="btn "
                                                         style="background-color:#ff0000; color: whitesmoke;width: 6rem;border-radius: 6px;">Yes</a>
                                                     <button type="button"
                                                         style="background-color:#a79f9f; color: whitesmoke;width: 6rem;border-radius: 6px;"
@@ -87,9 +98,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="/edit-user" class="btn "
+                                    <a href="/edit-user/{{_id}}" class="btn "
                                         style="background-color:#C9F7F5; color: #1BC5BD;width: 6rem;border-radius: 6px;">Edit</a>
                                 </td>
+                                {{/each}}
                         </tbody>
                     </table>
                 </div>

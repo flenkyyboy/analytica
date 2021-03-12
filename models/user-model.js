@@ -21,9 +21,9 @@ module.exports = mongoose.model(
       type: String,
       required: true,
     },
-    // admin_id: {
-    //     required: true,
-    //     type: Schema.Types.ObjectId
-    // }
+    admin_id: {
+        required: true,
+        type: Schema.Types.ObjectId
+    }
   })
 );

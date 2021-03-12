@@ -113,14 +113,14 @@ font-size: 34px;
 line-height: 51px;
 }
 .editinput{
+    border: 1px solid #1b222c;
     background: #FFFFFF;
-    box-sizing: border-box;
     height: 4rem;
     width: 70%;
-    font-family: Karla;
+    font-family: Poppins;
     font-style: normal;
     font-weight: normal;
-    font-size: 23.01px;
+    font-size: 30.01px;
     line-height: 19px;
     outline: none;
 }
