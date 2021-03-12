@@ -1,21 +1,31 @@
-<div class="row"></div>
+<div class="row">
     <div class="col-md-6 m-auto">
         <div class="text-center">
             <h1 class="text-center dashboard mt-4">Dashboard</h1>
         </div>
         <div>
-            <a href="" class="btn back-btn float-left">Back</a>
+            <a href="/session" class="btn back-btn float-left">Back</a>
         </div>
         <div>
             <a href="" class="btn btn-primary float-right">Download</a>
         </div>
-         <div class="pt-5">
-        <canvas id="myChart"></canvas>
-        <canvas id="myChart2"></canvas>
-         <canvas id="myChart3"></canvas>
-         <canvas id="myChart4"></canvas>
-        </div>
     </div>
+</div>
+<div class="row pt-5">
+    <dit class="col-md-6">
+        <canvas id="myChart"></canvas>
+    </dit>
+    <dit class="col-md-6">
+        <canvas id="myChart2"></canvas>
+    </dit>
+</div>
+<div class="row pt-5">
+    <dit class="col-md-6">
+        <canvas id="myChart3"></canvas>
+    </dit>
+    <dit class="col-md-6">
+        <canvas id="myChart4"></canvas>
+    </dit>
 </div>
 <script>
     let myChart = document.getElementById('myChart').getContext('2d')

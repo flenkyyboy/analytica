@@ -63,20 +63,26 @@ router.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
-router.get("/test", (req, res) => {
-  res.render("test");
-});
-router.get("/delete-session/:id", (req, res) => {
+router.get("/delete-session/:id", checkAuthentication, (req, res) => {
   index_controller.deleteSession(req, res);
 });
-router.get('/view-users',(req,res)=>{
-  res.render('view-users')
+router.get('/view-users', checkAuthentication, (req, res) => {
+  index_controller.getUsers(req, res)
 })
-router.get('/view-session',(req,res)=>{
+router.post('/create-user', async (req, res) => {
+    index_controller.createUser(req, res)
+})
+router.get('/delete-user/:id', (req, res) => {
+  index_controller.deleteUser(req, res)
+})
+router.get('/view-session', checkAuthentication, (req, res) => {
   res.render('view-session')
 })
-router.get('/edit-user',(req,res)=>{
-  res.render('edit-user')
+router.get('/edit-user/:id', checkAuthentication, (req, res) => {
+  index_controller.getOneUser(req, res)
+})
+router.post('/edit-user/:id', (req, res) => {
+  index_controller.editUser(req, res)
 })
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
