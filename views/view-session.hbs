@@ -63,7 +63,7 @@
                 labels: processData.productName,
                 datasets: [{
                     label: 'Total Price',
-                    borderColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(163, 163, 117)',
                     backgroundColor:palette('tol', processData.productName.length).map(function (hex) {
                         return '#' + hex;}),
                         data: processData.totalPrice,
@@ -78,7 +78,7 @@
             labels: processData.soldDate,
             datasets: [{
                 label: 'Quantity',
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(163, 163, 117)',
                backgroundColor:palette('tol', processData.soldDate.length).map(function (hex) {
                         return '#' + hex;}),
                 data: processData.quantity,
@@ -93,7 +93,7 @@
             labels: ['COD', 'Upi', 'Credit/Debit'],
             datasets: [{
                 label: 'Payment',
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(163, 163, 117)',
                 backgroundColor:palette('tol', 3).map(function (hex) {
                         return '#' + hex;}),
                 data: processData.paymentMethod,
@@ -108,7 +108,7 @@
             labels: Object.keys(processData.productType),
             datasets: [{
                 label: 'Color',
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(163, 163, 117)',
                 backgroundColor:palette('tol', Object.keys(processData.productType).length).map(function (hex) {
                         return '#' + hex;}),
                 data: Object.values(processData.productType),
