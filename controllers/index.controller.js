@@ -4,6 +4,7 @@ const Data = require("../models/data-model");
 const Sessions = require("../models/session-model");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const moment = require("moment");
 const User = require('../models/user-model')
 const model_helper = require("../models/helpers/index.helper");
 
@@ -29,6 +30,7 @@ module.exports.createSession = async (req, res) => {
           failed: "File Uploaded Failed",
           allSession,
           totalSession,
+          role: req.session.passport.user.role
         });
         fs.unlinkSync(req.file.path);
       } else {
@@ -50,12 +52,14 @@ module.exports.createSession = async (req, res) => {
               failed: "File Uploaded Failed",
               allSession,
               totalSession,
+              role: req.session.passport.user.role
             });
           } else {
             res.render("sessions", {
               success: "Session Created Successfully",
               allSession,
               totalSession,
+              role: req.session.passport.user.role
             });
           }
         });
@@ -74,17 +78,22 @@ module.exports.createSession = async (req, res) => {
       failed: "Converting Failed",
       allSession,
       totalSession,
+      role: req.session.passport.user.role
     });
   }
 };
 module.exports.getSessions = async (req, res) => {
   const pageNo = req.query.page;
-  const userId = req.session.passport.user._id;
+  if (req.session.passport.user.role === 'employee') {
+    var userId = req.session.passport.user.admin_id
+  } else {
+    var userId = req.session.passport.user._id;
+  }
   const { allSession, totalSession } = await model_helper.getSession(
     userId,
     pageNo
   );
-  res.render("sessions", { allSession, totalSession });
+  res.render("sessions", { allSession, totalSession, role: req.session.passport.user.role });
 };
 module.exports.deleteSession = async (req, res) => {
   const sessionData = await Sessions.findOneAndDelete({ _id: req.params.id });
@@ -101,7 +110,7 @@ module.exports.createUser = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   const allUser = await User.find({ admin_id: req.session.passport.user._id }).lean()
   if (user) {
-    res.render('view-users', { failed: 'Email Already Exist', allUser })
+    res.render('view-users', { failed: 'Email Already Exist', allUser,role: req.session.passport.user.role })
   } else {
     const userObj = {
       "_id": new mongoose.Types.ObjectId(),
@@ -115,9 +124,9 @@ module.exports.createUser = async (req, res) => {
     newUser.save(async (err, user) => {
       const allUser = await User.find({ admin_id: req.session.passport.user._id }).lean()
       if (err) {
-        res.render('view-users', { failed: 'User not created', allUser })
+        res.render('view-users', { failed: 'User not created', allUser ,role: req.session.passport.user.role})
       } else {
-        res.render('view-users', { success: 'User Created Successfully', allUser })
+        res.render('view-users', { success: 'User Created Successfully', allUser,role: req.session.passport.user.role })
       }
     })
   }
@@ -160,4 +169,24 @@ module.exports.doLogin = (req, res) => {
 }
 module.exports.viewSessionPage = (req, res) => {
   res.render('view-session', { id: req.params.id })
+}
+module.exports.viewAllSesions = async (req, res) => {
+  const getSessions = await Sessions.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "created_by",
+        foreignField: "_id",
+        as: "user_info"
+      }
+    }
+  ])
+  const allSession = getSessions.map((item) => ({
+    _id: item._id,
+    created_by: item.created_by,
+    data: item.data,
+    created_at: moment(item.created_at).format("L"),
+    user_info:item.user_info[0]
+  }));
+  res.render('allSession',{allSession,role:req.session.passport.user.role})
 }

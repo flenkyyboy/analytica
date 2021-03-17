@@ -1,3 +1,4 @@
+
 {{>navbar}}
 {{!-- <a href="/" class="btn  back-btn">Back</a> --}}
 <section>
@@ -5,9 +6,9 @@
         <div class="col-md-6 m-auto">
             <div class="container mt-5 pt-3 ">
                 <div>
-                    <h2 class="text-center session ">Sessions</h2>
+                    <h2 class="text-center session ">All Sessions</h2>
                 </div>
-                <div class="pt-4">
+                {{!-- <div class="pt-4">
                     {{#stringNotEqual role 'employee'}}
                     <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModal"
                         data-whatever="@getbootstrap"
@@ -46,23 +47,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                {{#if success}}
-                <div id="alert" class="alert alert-success text-center mt-5" role="alert">
-                    {{success}}
-                </div>
-                {{/if}}
-                {{#if failed}}
-                <div id="alert" class="alert alert-danger text-center mt-5" role="alert">
-                    {{failed}}
-                </div>
-                {{/if}}
+                </div> --}}
                 <div class="pt-5">
                     <table class="table table-borderless">
                         <thead style="background-color: #F3F6F9;">
                             <tr>
                                 <th style="text-align: left;color: #464E5F;">Session Id</th>
-                                <th style="text-align: center; color: #B5B5C3;">Created date</th>
+                                <th style=" color: #B5B5C3;">Created By</th>
+                                <th style=" color: #B5B5C3;">Created Date</th>
                                 <th style="position: absolute; right: 6rem;color: #B5B5C3;">Action</th>
                             </tr>
                         </thead>
@@ -70,6 +62,7 @@
                             {{#each allSession}}
                             <tr>
                                 <td>{{_id}}</td>
+                                <td style="text-align: center">{{user_info.name}}</td>
                                 <td style="text-align: center">{{created_at}}</td>
                                 <td style="text-align: right">
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -106,24 +99,9 @@
 
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="/session">0</a></li>
-                            {{{pagination totalSession}}}
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
     </div>
     </div>
 </section>
-<script>
-    const url_string = window.location.href;
-    const url = new URL(url_string);
-    const page = url.searchParams.get("page") || "0"
-    const paginationLinks = document.querySelectorAll(".page-item")
-    paginationLinks.forEach(link => {
-        if (page === link.innerText) link.classList.add("active")
-    })
-</script>
