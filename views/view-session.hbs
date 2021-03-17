@@ -27,45 +27,76 @@
         <canvas id="myChart4"></canvas>
     </dit>
 </div>
+<input type="hidden" id="data_id" value="{{id}}">
 <script>
-    let myChart = document.getElementById('myChart').getContext('2d')
-    let barchart = new Chart(myChart, {
-        type: 'pie',
-        data: {
-            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
-            datasets: [{
-                label: 'Color',
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
-                data: [20, 10, 5, 2, 20, 30, 45],
-            }]
-        },
+    const id = document.getElementById('data_id').value
+    axios.get(`/get-session-data/${id}`).then(response => {
+        const data = response.data.data
+        const getProductDetails = (data) => {
+            const proccessData = data.sort((a, b) => b['Total Price'] - a['Total Price']).slice(0, 5)
+            console.log(proccessData)
+
+
+            const totalCodPayment = data.filter(item => item['Payment Method'] === "COD")
+            const totalUpiPayment = data.filter(item => item['Payment Method'] === "Upi")
+            const totalCardPayment = data.filter(item => item['Payment Method'] === "Credit/Debit")
+            return {
+                productName: proccessData.map(product => product['Product Name']),
+                totalPrice: proccessData.map(product => product['Total Price']),
+                soldDate: data.map(product => product['Sold Date']),
+                quantity: data.map(product => product.Quantity),
+                paymentMethod: [totalCodPayment.length, totalUpiPayment.length, totalCardPayment.length],
+                productType: proccessData.reduce((accumulator, product) => {
+                    accumulator[product["Product Type"]] = ++accumulator[product["Product Type"]] || 1;
+                    return accumulator
+                }, {})
+            }
+
+        }
+        const processData = getProductDetails(data)
+        console.log(processData)
+
+        let myChart = document.getElementById('myChart').getContext('2d')
+        let barchart = new Chart(myChart, {
+            type: 'bar',
+            data: {
+                labels: processData.productName,
+                datasets: [{
+                    label: 'Total Price',
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor:palette('tol', processData.productName.length).map(function (hex) {
+                        return '#' + hex;}),
+                        data: processData.totalPrice,
+                }]
+            },
         options: {}
-    })
+        })
     let myChart2 = document.getElementById('myChart2').getContext('2d')
     let barchart2 = new Chart(myChart2, {
         type: 'line',
         data: {
-            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            labels: processData.soldDate,
             datasets: [{
-                label: 'Color',
+                label: 'Quantity',
                 borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
-                data: [20, 10, 5, 2, 20, 30, 45],
+               backgroundColor:palette('tol', processData.soldDate.length).map(function (hex) {
+                        return '#' + hex;}),
+                data: processData.quantity,
             }]
         },
         options: {}
     })
     let myChart3 = document.getElementById('myChart3').getContext('2d')
     let barchart3 = new Chart(myChart3, {
-        type: 'bar',
+        type: 'pie',
         data: {
-            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            labels: ['COD', 'Upi', 'Credit/Debit'],
             datasets: [{
-                label: 'Color',
+                label: 'Payment',
                 borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
-                data: [20, 10, 5, 2, 20, 30, 45],
+                backgroundColor:palette('tol', 3).map(function (hex) {
+                        return '#' + hex;}),
+                data: processData.paymentMethod,
             }]
         },
         options: {}
@@ -74,14 +105,21 @@
     let barchart4 = new Chart(myChart4, {
         type: 'doughnut',
         data: {
-            labels: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
+            labels: Object.keys(processData.productType),
             datasets: [{
                 label: 'Color',
                 borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: ['green', 'red', 'yellow', 'blue', 'black', 'pink', 'orange'],
-                data: [20, 10, 5, 2, 20, 30, 45],
+                backgroundColor:palette('tol', Object.keys(processData.productType).length).map(function (hex) {
+                        return '#' + hex;}),
+                data: Object.values(processData.productType),
             }]
         },
         options: {}
     })
+
+    })
+
+
+
+
 </script>

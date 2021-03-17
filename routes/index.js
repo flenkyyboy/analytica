@@ -17,73 +17,39 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.get("/", checkNotAuthentication, (req, res) => {
-  res.render("login");
-});
-router.post(
-  "/",
-  passport.authenticate("local", {
-    successRedirect: "/session",
-    failureRedirect: "/",
-    failureFlash: true,
-  })
-);
-router.get("/session", checkAuthentication, (req, res) => {
-  index_controller.getSessions(req, res);
-});
-router.post(
-  "/upload",
-  checkAuthentication,
-  upload.single("datafile"),
-  (req, res) => {
-    index_controller.createSession(req, res);
-  }
-);
+router.get("/", checkNotAuthentication, index_controller.doLogin);
 
-// router.post('/adduser',(req,res)=>{
-//     console.log(req.body);
-//     const userObj = {
-//         "_id": new mongoose.Types.ObjectId(),
-//         "name":req.body.name,
-//         "email":req.body.email,
-//         "password":req.body.password,
-//         "role":"admin",
-//         // "admin_id":0
-//     }
-//     const newUser = new User(userObj)
-//     newUser.save((err,user)=>{
-//         if(err){
-//             res.status(400).send(err)
-//         }else{
-//             res.status(200).json(user)
-//         }
-//     })
-// })
-router.get("/logout", function (req, res) {
+router.post("/", passport.authenticate("local", {
+  successRedirect: "/session",
+  failureRedirect: "/",
+  failureFlash: true,
+})
+);
+router.get("/session", checkAuthentication, index_controller.getSessions);
+
+router.post("/upload", checkAuthentication, upload.single("datafile"), index_controller.createSession);
+
+router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
-router.get("/delete-session/:id", checkAuthentication, (req, res) => {
-  index_controller.deleteSession(req, res);
-});
-router.get('/view-users', checkAuthentication, (req, res) => {
-  index_controller.getUsers(req, res)
-})
-router.post('/create-user', async (req, res) => {
-    index_controller.createUser(req, res)
-})
-router.get('/delete-user/:id', (req, res) => {
-  index_controller.deleteUser(req, res)
-})
-router.get('/view-session', checkAuthentication, (req, res) => {
-  res.render('view-session')
-})
-router.get('/edit-user/:id', checkAuthentication, (req, res) => {
-  index_controller.getOneUser(req, res)
-})
-router.post('/edit-user/:id', (req, res) => {
-  index_controller.editUser(req, res)
-})
+
+router.get("/delete-session/:id", checkAuthentication, index_controller.deleteSession);
+
+router.get('/view-users', checkAuthentication, index_controller.getUsers)
+
+router.post('/create-user', index_controller.createUser)
+
+router.get('/delete-user/:id', index_controller.deleteUser)
+
+router.get('/view-session/:id', checkAuthentication, index_controller.viewSessionPage)
+
+router.get('/edit-user/:id', checkAuthentication, index_controller.getOneUser)
+
+router.post('/edit-user/:id', index_controller.editUser)
+
+router.get('/get-session-data/:id', index_controller.getSessionData)
+
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

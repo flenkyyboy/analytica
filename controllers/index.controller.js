@@ -11,8 +11,7 @@ module.exports.createSession = async (req, res) => {
   try {
     const jsonObj = await csv({ checkType: true }).fromFile(req.file.path);
     model_helper.validateProperty(jsonObj);
-    const result = model_helper.addProduct(jsonObj);
-    const totalProductValue = model_helper.addTotalPrice(result);
+    const totalProductValue = model_helper.addTotalPrice(jsonObj);
     const dataObj = {
       _id: new mongoose.Types.ObjectId(),
       data: totalProductValue,
@@ -137,7 +136,6 @@ module.exports.getOneUser = (req, res) => {
       res.render('edit-user', { user })
     }
   }).lean();
-
 }
 module.exports.editUser = (req, res) => {
   const userObj = {
@@ -152,5 +150,14 @@ module.exports.editUser = (req, res) => {
       res.redirect('/view-users')
     }
   })
-
+}
+module.exports.getSessionData = async (req, res) => {
+  const data = await Data.findById(req.params.id)
+  res.json(data)
+}
+module.exports.doLogin = (req, res) => {
+  res.render("login");
+}
+module.exports.viewSessionPage = (req, res) => {
+  res.render('view-session', { id: req.params.id })
 }
