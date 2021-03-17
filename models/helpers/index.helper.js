@@ -12,19 +12,20 @@ module.exports.validateProperty = (jsonObj) => {
     }
   });
 };
-module.exports.addProduct = (jsonObj) => {
-  return jsonObj.reduce((accumulator, currentValue) => {
-    const helper = {};
-    var key = currentValue["Product ID"];
-    if (!helper[key]) {
-      helper[key] = currentValue;
-      accumulator.push(helper[key]);
-    } else {
-      helper[key].Quantity = helper[key].Quantity + currentValue.Quantity;
-    }
-    return accumulator;
-  }, []);
-};
+// module.exports.addProduct = (jsonObj) => {
+//    let helper = {};
+//    const addedProduct =  jsonObj.reduce((accumulator, currentValue) => {
+//     var key = currentValue["Product ID"];
+//     if (!helper[key]) {
+//       helper[key] = currentValue;
+//       accumulator.push(helper[key]);
+//     } else {
+//       helper[key].Quantity = helper[key].Quantity + currentValue.Quantity;
+//     }
+//     return accumulator;
+//   }, []);
+//   return addedProduct
+// };
 module.exports.addTotalPrice = (result) => {
   return result.map((item) => ({
     ...item,
