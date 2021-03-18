@@ -1,4 +1,3 @@
-
 {{>navbar}}
 {{!-- <a href="/" class="btn  back-btn">Back</a> --}}
 <section>
@@ -14,7 +13,7 @@
                         data-whatever="@getbootstrap"
                         style="color: white; background-color: #A6A2A2;font-weight: bold;">Create
                         session</button>
-                        {{/stringNotEqual}}
+                    {{/stringNotEqual}}
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -34,7 +33,7 @@
                                         </div>
                                 </div>
                                 <div class="text-center">
-                                    <a href="/templets.csv" >Download</a>
+                                    <a href="/templets.csv">Download</a>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -99,9 +98,24 @@
 
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="/allSession">0</a></li>
+                            {{{paginationAdmin totalSession}}}
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
     </div>
 </section>
+<script>
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const page = url.searchParams.get("page") || "0"
+    const paginationLinks = document.querySelectorAll(".page-item")
+    paginationLinks.forEach(link => {
+        if (page === link.innerText) link.classList.add("active")
+    })
+</script>

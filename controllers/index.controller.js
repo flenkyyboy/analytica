@@ -106,87 +106,16 @@ module.exports.viewSession = async (req, res) => {
   const data = await Data.findOne({ _id: req.params.id });
   res.send(data._id);
 };
-module.exports.createUser = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  const allUser = await User.find({ admin_id: req.session.passport.user._id }).lean()
-  if (user) {
-    res.render('view-users', { failed: 'Email Already Exist', allUser,role: req.session.passport.user.role })
-  } else {
-    const userObj = {
-      "_id": new mongoose.Types.ObjectId(),
-      "name": req.body.name,
-      "email": req.body.email,
-      "password": req.body.password,
-      "role": req.session.passport.user.role === "admin" ? "employee" : "admin",
-      "admin_id": req.session.passport.user._id
-    }
-    const newUser = new User(userObj)
-    newUser.save(async (err, user) => {
-      const allUser = await User.find({ admin_id: req.session.passport.user._id }).lean()
-      if (err) {
-        res.render('view-users', { failed: 'User not created', allUser ,role: req.session.passport.user.role})
-      } else {
-        res.render('view-users', { success: 'User Created Successfully', allUser,role: req.session.passport.user.role })
-      }
-    })
-  }
-}
-module.exports.getUsers = async (req, res) => {
-  const allUser = await User.find({ admin_id: req.session.passport.user._id }).lean()
-  res.render('view-users', { allUser })
-}
-module.exports.deleteUser = async (req, res) => {
-  await User.deleteOne({ _id: req.params.id });
-  res.redirect("/view-users");
-};
-module.exports.getOneUser = (req, res) => {
-  User.findById(req.params.id, (err, user) => {
-    if (!err) {
-      res.render('edit-user', { user })
-    }
-  }).lean();
-}
-module.exports.editUser = (req, res) => {
-  const userObj = {
-    "name": req.body.name,
-    "email": req.body.email,
-    "password": req.body.password,
-  }
-  User.findByIdAndUpdate(req.params.id, userObj, { new: true }).exec((err, doc) => {
-    if (err) {
-      res.redirect('/view-users')
-    } else {
-      res.redirect('/view-users')
-    }
-  })
-}
+
 module.exports.getSessionData = async (req, res) => {
   const data = await Data.findById(req.params.id)
   res.json(data)
-}
-module.exports.doLogin = (req, res) => {
-  res.render("login");
 }
 module.exports.viewSessionPage = (req, res) => {
   res.render('view-session', { id: req.params.id })
 }
 module.exports.viewAllSesions = async (req, res) => {
-  const getSessions = await Sessions.aggregate([
-    {
-      $lookup: {
-        from: "users",
-        localField: "created_by",
-        foreignField: "_id",
-        as: "user_info"
-      }
-    }
-  ])
-  const allSession = getSessions.map((item) => ({
-    _id: item._id,
-    created_by: item.created_by,
-    data: item.data,
-    created_at: moment(item.created_at).format("L"),
-    user_info:item.user_info[0]
-  }));
-  res.render('allSession',{allSession,role:req.session.passport.user.role})
+  const pageNo = req.query.page;
+  const {allSession,totalSession} = await model_helper.viewAllSession(pageNo)
+  res.render('allSession',{allSession,role:req.session.passport.user.role,totalSession})
 }
