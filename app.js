@@ -56,6 +56,15 @@ app.engine(
         }
         return result;
       },
+      paginationAdmin: (totalSession) => {
+        let result = "";
+        for (let i = 1; i < totalSession / 5; i++) {
+          result =
+            result +
+            `<li class="page-item"><a class="page-link" href="/allSession?page=${i}">${i}</a></li>`;
+        }
+        return result;
+      },
       stringNotEqual:(arg1,arg2,options)=>{
         return (arg1!=arg2) ? options.fn(this) : options.inverse(this);
       }

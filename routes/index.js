@@ -1,5 +1,6 @@
 const express = require("express");
 const index_controller = require("../controllers/index.controller");
+const user_controller = require("../controllers/user.controller");
 const User = require("../models/user-model");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.get("/", checkNotAuthentication, index_controller.doLogin);
+router.get("/", checkNotAuthentication, user_controller.doLogin);
 
 router.post("/", passport.authenticate("local", {
   successRedirect: "/session",
@@ -36,17 +37,17 @@ router.get("/logout", (req, res) => {
 
 router.get("/delete-session/:id", checkAuthentication,checkEmployee, index_controller.deleteSession);
 
-router.get('/view-users', checkAuthentication,checkEmployee, index_controller.getUsers)
+router.get('/view-users', checkAuthentication,checkEmployee, user_controller.getUsers)
 
-router.post('/create-user',checkEmployee, index_controller.createUser)
+router.post('/create-user',checkEmployee, user_controller.createUser)
 
-router.get('/delete-user/:id',checkEmployee, index_controller.deleteUser)
+router.get('/delete-user/:id',checkEmployee, user_controller.deleteUser)
 
 router.get('/view-session/:id', checkAuthentication, index_controller.viewSessionPage)
 
-router.get('/edit-user/:id', checkAuthentication,checkEmployee, index_controller.getOneUser)
+router.get('/edit-user/:id', checkAuthentication,checkEmployee, user_controller.getOneUser)
 
-router.post('/edit-user/:id',checkEmployee, index_controller.editUser)
+router.post('/edit-user/:id',checkEmployee, user_controller.editUser)
 
 router.get('/get-session-data/:id', index_controller.getSessionData)
 
