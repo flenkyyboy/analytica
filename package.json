@@ -4,7 +4,8 @@
   "description": "Analytica",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,9 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
